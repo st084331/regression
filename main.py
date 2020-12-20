@@ -1,5 +1,6 @@
 from math import sqrt, exp, fabs
 import numpy as np
+import csv
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from scipy.optimize import curve_fit
@@ -10,13 +11,24 @@ import matplotlib.pyplot as plt
 n = 150
 x = []
 y = []
-for i in range(n):
-    try:
-        zn = i + 2
-        x.append(i)
-        y.append(zn)
-    except:
-        pass
+
+k = int(input())
+
+if(k==1):
+    with open('population_by_country_2020.csv') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            if (row)['Fert'] != 'N.A.':
+                x.append(float(row['Density (P/Km²)']))
+                y.append(float(row['Fert']))
+if(k==0):
+    for i in range(n):
+        try:
+            zn = i + 2
+            x.append(i)
+            y.append(zn)
+        except:
+            pass
 
 X = np.array(x).reshape(-1,1)
 Y = np.array(y)
